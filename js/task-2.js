@@ -1,48 +1,37 @@
-function calcAverageCalories(days) {
-  // перевіряю довжину масиву (якщо порожній = 0)
-
-  if (days.length === 0) {
-    return 0;
+class Storage {
+  //   Оголошую приватну властивість
+  #items;
+  constructor(initialItems) {
+    // створюю масив для зберігання елементів
+    this.#items = [...initialItems];
   }
-
-  // змінна для підрахунку суми калорій
-
-  let totalCalories = 0;
-
-  // перебираю масив днів
-
-  for (const day of days) {
-    // додаю к-сть цього дня до загальної суми
-
-    totalCalories += day.calories;
+  getItems() {
+    // Повертаю копію масиву
+    return [...this.#items];
   }
-
-  // Розраховую середнє значення калорій за всі дні
-
-  return totalCalories / days.length;
+  // Повертаю копію масиву, щоб не змінювати оригінальний масив
+  addItem(newItem) {
+    this.#items.push(newItem);
+  }
+  // Додаю новий елемент до масиву
+  removeItem(itemToRemove) {
+    const index = this.#items.indexOf(itemToRemove);
+    // якщо елемент знайдено, видаляю його
+    if (index !== -1) {
+      this.#items.splice(index, 1);
+    }
+  }
 }
 
-// для ментора
-console.log(
-  calcAverageCalories([
-    { day: 'monday', calories: 3010 },
-    { day: 'tuesday', calories: 3200 },
-    { day: 'wednesday', calories: 3120 },
-    { day: 'thursday', calories: 2900 },
-    { day: 'friday', calories: 3450 },
-    { day: 'saturday', calories: 3280 },
-    { day: 'sunday', calories: 3300 },
-  ])
-); // 3180
-console.log(
-  calcAverageCalories([
-    { day: 'monday', calories: 2040 },
-    { day: 'tuesday', calories: 2270 },
-    { day: 'wednesday', calories: 2420 },
-    { day: 'thursday', calories: 1900 },
-    { day: 'friday', calories: 2370 },
-    { day: 'saturday', calories: 2280 },
-    { day: 'sunday', calories: 2610 },
-  ])
-); // 2270
-console.log(calcAverageCalories([])); // 0
+// дляд ментора
+const storage = new Storage(['Nanitoids', 'Prolonger', 'Antigravitator']);
+console.log(storage.getItems()); // ["Nanitoids", "Prolonger", "Antigravitator"]
+
+storage.addItem('Droid');
+console.log(storage.getItems()); // ["Nanitoids", "Prolonger", "Antigravitator", "Droid"]
+
+storage.removeItem('Prolonger');
+console.log(storage.getItems()); // ["Nanitoids", "Antigravitator", "Droid"]
+
+storage.removeItem('Scaner');
+console.log(storage.getItems()); // ["Nanitoids", "Antigravitator", "Droid"]

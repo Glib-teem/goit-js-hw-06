@@ -1,29 +1,30 @@
-function isEnoughCapacity(products, containerSize) {
-  // Отримую масив значень
-  // викор п-три ф-ції для збору значень
+const customer = {
+  username: 'Mango',
+  balance: 24000,
+  discount: 0.1,
+  orders: ['Burger', 'Pizza', 'Salad'],
 
-  function sumQuantities(...quantities) {
-    // підраховую загальну суму, якщо порожній = 0
+  getBalance() {
+    return this.balance; // Додано 'this.'
+  },
+  getDiscount() {
+    return this.discount; // Додано 'this.'
+  },
+  setDiscount(value) {
+    this.discount = value; // Додано 'this.'
+  },
+  getOrders() {
+    return this.orders; // Додано 'this.'
+  },
+  addOrder(cost, order) {
+    this.balance -= cost - cost * this.discount; // Додано 'this.'
+    this.orders.push(order); // Додано 'this.'
+  },
+};
 
-    return quantities.reduce((total, current) => total + current, 0);
-  }
-
-  // Отрмую к-сть продуктів
-
-  const productsQuantities = Object.values(products);
-
-  // викор spread оператор для розгортання масиву
-
-  const totalProducts = sumQuantities(...productsQuantities);
-
-  // Порівнюю з розміром контейнера
-
-  return totalProducts <= containerSize;
-}
-
-// для ментора
-
-console.log(isEnoughCapacity({ apples: 2, grapes: 3, carrots: 1 }, 8)); // true
-console.log(isEnoughCapacity({ apples: 4, grapes: 6, lime: 16 }, 12)); // false
-console.log(isEnoughCapacity({ apples: 1, lime: 5, tomatoes: 3 }, 14)); // true
-console.log(isEnoughCapacity({ apples: 18, potatoes: 5, oranges: 2 }, 7)); // false
+// Дляд ментора.
+customer.setDiscount(0.15);
+console.log(customer.getDiscount()); // 0.15
+customer.addOrder(5000, 'Steak');
+console.log(customer.getBalance()); // 19750
+console.log(customer.getOrders()); // ["Burger", "Pizza", "Salad", "Steak"]
